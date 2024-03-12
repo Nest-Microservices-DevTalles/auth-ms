@@ -5,7 +5,6 @@ import { LoginUserDto, RegisterUserDto } from './dto';
 
 @Controller()
 export class AuthController {
-  
   constructor(private readonly authService: AuthService) {}
   /*
     foo.* matches foo.bar, foo.baz, and so on, but not foo.bar.baz
@@ -13,19 +12,17 @@ export class AuthController {
     foo.> matches foo.bar, foo.bar.baz, and so on
   */
   @MessagePattern('auth.register.user')
-  registerUser(@Payload() registerUserDto: RegisterUserDto ) {
-    return registerUserDto;
+  registerUser(@Payload() registerUserDto: RegisterUserDto) {
+    return this.authService.registerUser(registerUserDto);
   }
 
   @MessagePattern('auth.login.user')
-  loginUser( @Payload() loginUserDto: LoginUserDto  ) {
-    return loginUserDto;
+  loginUser(@Payload() loginUserDto: LoginUserDto) {
+    return this.authService.loginUser( loginUserDto );
   }
-
 
   @MessagePattern('auth.verify.user')
   verifyToken() {
     return 'verify token';
   }
-
 }
